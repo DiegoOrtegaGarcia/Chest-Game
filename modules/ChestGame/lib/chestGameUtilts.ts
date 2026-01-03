@@ -16,13 +16,3 @@ const createRowPieces = (index : number) => {
     return([0,0,0,0,0,0,0,0])
   
 }
-
-export const selectBoxColor = (rowIndex: number, colIndex: number) => {
-    if(rowIndex == 0||rowIndex ==2 || rowIndex ==4 ||rowIndex ==6) {
-        const result = colIndex % 2
-        return result ? "white" : "black"
-    }else{
-        const result = colIndex % 2
-        return result ? "black" : "white"
-    }
-}
