@@ -14,7 +14,7 @@ describe('ChestGameContainer', () => {
         const component = render(<ChestGameContainer/>);
         const col = component.getAllByTestId(/^row-\d+-col\d+$/);
         const darkCells = col.filter(box => 
-            box.classList.contains('bg-black')
+            box.classList.contains('bg-amber-800')
         );
         expect(darkCells).toHaveLength(32)
     })
