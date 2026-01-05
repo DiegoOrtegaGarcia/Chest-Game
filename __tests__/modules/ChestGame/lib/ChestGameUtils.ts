@@ -10,21 +10,27 @@ const PIECES = {
   QUEEN: '♛' ,
   KING: '♚' ,
 };
+const teamSelection = false ;
+
+const selectTeamByChoice = (teamSelection:boolean)=>{
+    return teamSelection ? "white" :"black"
+}
 
 const CHEST_BOARD_PIECES = [
-  [{value:PIECES.ROOK,team:"white"}, {value:PIECES.KNIGHT,team:'white'}, {value:PIECES.BISHOP,team:'white'}, {value:PIECES.QUEEN,team:'white'}, {value:PIECES.KING,team:'white'}, {value:PIECES.BISHOP,team:'white'}, {value:PIECES.KNIGHT,team:'white'}, {value:PIECES.ROOK,team:'white'}]
-  ,Array(8).fill({value:PIECES.PAWN,team:'white'}),
+  [{value:PIECES.ROOK,team: teamSelection ? selectTeamByChoice(teamSelection) : selectTeamByChoice(!teamSelection)}, {value:PIECES.KNIGHT,team:teamSelection  ?selectTeamByChoice(teamSelection) : selectTeamByChoice(!teamSelection)}, {value:PIECES.BISHOP,team:teamSelection ?selectTeamByChoice(teamSelection) : selectTeamByChoice(!teamSelection)}, {value:PIECES.QUEEN,team:teamSelection ?selectTeamByChoice(teamSelection) : selectTeamByChoice(!teamSelection)}, {value:PIECES.KING,team:teamSelection ?selectTeamByChoice(teamSelection) : selectTeamByChoice(!teamSelection)}, {value:PIECES.BISHOP,team:teamSelection ?selectTeamByChoice(teamSelection) : selectTeamByChoice(!teamSelection)}, {value:PIECES.KNIGHT,team:teamSelection ?selectTeamByChoice(teamSelection) : selectTeamByChoice(!teamSelection)}, {value:PIECES.ROOK,team:teamSelection ?selectTeamByChoice(teamSelection) : selectTeamByChoice(!teamSelection)}]
+  ,Array(8).fill({value:PIECES.PAWN,team:teamSelection  ? selectTeamByChoice(teamSelection) : selectTeamByChoice(!teamSelection)}),
   Array(8).fill({value:PIECES.EMPTY,team:'empty'}),
   Array(8).fill({value:PIECES.EMPTY,team:'empty'}),
   Array(8).fill({value:PIECES.EMPTY,team:'empty'}),
   Array(8).fill({value:PIECES.EMPTY,team:'empty'}),
-  Array(8).fill({value:PIECES.PAWN,team:'black'}),
-  [{value:PIECES.ROOK,team:"black"}, {value:PIECES.KNIGHT,team:'black'}, {value:PIECES.BISHOP,team:'black'}, {value:PIECES.QUEEN,team:'black'}, {value:PIECES.KING,team:'black'}, {value:PIECES.BISHOP,team:'black'}, {value:PIECES.KNIGHT,team:'black'}, {value:PIECES.ROOK,team:'black'}]]
+  Array(8).fill({value:PIECES.PAWN,team:teamSelection ? selectTeamByChoice(!teamSelection) : selectTeamByChoice(teamSelection)}),
+  [{value:PIECES.ROOK,team:teamSelection ?selectTeamByChoice(!teamSelection) : selectTeamByChoice(teamSelection)}, {value:PIECES.KNIGHT,team:teamSelection ?selectTeamByChoice(!teamSelection) : selectTeamByChoice(teamSelection)}, {value:PIECES.BISHOP,team:teamSelection ?selectTeamByChoice(!teamSelection) : selectTeamByChoice(teamSelection)}, {value:PIECES.QUEEN,team:teamSelection ?selectTeamByChoice(!teamSelection) : selectTeamByChoice(teamSelection)}, {value:PIECES.KING,team:teamSelection ?selectTeamByChoice(!teamSelection) : selectTeamByChoice(teamSelection)}, {value:PIECES.BISHOP,team:teamSelection ?selectTeamByChoice(!teamSelection) : selectTeamByChoice(teamSelection)}, {value:PIECES.KNIGHT,team:teamSelection ?selectTeamByChoice(!teamSelection) : selectTeamByChoice(teamSelection)}, {value:PIECES.ROOK,team:teamSelection ?selectTeamByChoice(!teamSelection) : selectTeamByChoice(teamSelection)}]]
+
 
 
 describe('Home', () => {
   it('Create a 8x8 Array', () => {
-    const board = createNewBoard();
+    const board = createNewBoard(teamSelection);
     expect(Array.isArray(board)).toBe(true);
     expect(board).toHaveLength(8)
     
@@ -34,7 +40,7 @@ describe('Home', () => {
   })
 
   it("Confirm Pieces Position",()=> {
-    const board = createNewBoard();
+    const board = createNewBoard(teamSelection);
     expect(board).toEqual(CHEST_BOARD_PIECES)
     board.forEach((row,rowIndex)=>(
         row.forEach((box,boxIndex)=>{

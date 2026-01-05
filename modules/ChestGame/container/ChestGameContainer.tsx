@@ -43,7 +43,7 @@ export default function ChestGameContainer() {
                                     className={`
                                         w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 flex items-center justify-center
                                         ${selectBoxColor(rowIndex, colIndex)}
-                                        font-bold text-4xl
+                                        font-bold text-5xl
                                         ${selectPiecesColor(box.team)}
                                         hover:brightness-110 transition-all duration-200
                                         border border-amber-800/30
@@ -57,7 +57,6 @@ export default function ChestGameContainer() {
                 </div>
             </div>
             
-            {/* Información adicional */}
             <div className="mt-8 text-center text-gray-300">
                 <p className="text-sm">♖♘♗♕♔♗♘♖ - ♙ Peón | ♘ Caballo | ♗ Alfil | ♖ Torre | ♕ Reina | ♔ Rey</p>
             </div>
