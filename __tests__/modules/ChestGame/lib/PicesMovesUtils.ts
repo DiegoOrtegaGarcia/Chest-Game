@@ -87,4 +87,26 @@ describe("Pieces Moves - Pawn Logic", () => {
   
     expect(moves).toEqual([[5, 3], [4, 3]]);
   });
+
+  it("Torre deberia poder caminar hacia Arriba",()=>{
+    const board = createEmptyBoard();
+    board[7][0] = { value: "♜", team: "white" }
+    const piece = {
+      type: board[7][0],
+      positon: [7, 0] as [number, number]
+    };
+    const moves = getPosibelsMoves(piece, true, board);
+    expect(moves).toEqual([[6,0],[5,0],[4,0],[3,0],[2,0],[1,0],[0,0]]);
+  })
 });
+
+const createEmptyBoard=()=>{
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const board : any[][]= [] 
+
+  for (let index = 0; index < 8; index++) {
+    const box = Array(8).fill({value:" ",team:'empty'})
+    board.push(box)
+  }
+  return board
+}

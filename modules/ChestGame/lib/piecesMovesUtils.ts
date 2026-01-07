@@ -45,6 +45,37 @@ export const getPosibelsMoves = (pieceWithPos: PieceWithPosition,teamSelection: 
     }
   }
 
+  if(piece.value === "♜"){
+    const directions = [[-1,0], [1,0], [0,-1], [0,1]];
+    
+    for(const [dRow, dCol] of directions){
+        let step = 1;
+        while(true){
+            const newRow = row + step * dRow;
+            const newCol = col + step * dCol;
+            const positionToVerify: [number, number] = [newRow, newCol];
+            
+            if(!isValidPosition(positionToVerify)){
+                break;
+            }
+            
+            const targetPiece = getPieceAt(board, positionToVerify);
+            
+            if(!targetPiece || targetPiece.value === " ") {
+                posiblesMoves.push(positionToVerify);
+                step++;
+                continue;
+            }
+            
+            if(targetPiece && targetPiece.team !== piece.team){
+                posiblesMoves.push(positionToVerify);
+                break;
+            }
+            
+            break;
+        }
+    }
+}
   return posiblesMoves;
 };
 
