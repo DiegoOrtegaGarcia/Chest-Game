@@ -1,8 +1,9 @@
 import { createNewBoard } from '@/modules/ChestGame/lib/chestGameUtilts';
-import { getPieceAt, getPosibelsMoves } from '@/modules/ChestGame/lib/piecesMovesUtils';
+import { getPieceAt } from '@/modules/ChestGame/lib/PiecesIndividualLogic/GeneralPieceLogic';
+import { getPosibelsMoves } from '@/modules/ChestGame/lib/piecesMovesUtils';
 import { Piece } from '@/modules/ChestGame/types/chestGameTypes';
 
-describe("Pieces Moves - Pawn Logic", () => {
+describe("Pieces Moves", () => {
 
   it("Comprobar que getPieceAt Funcione",()=>{
     const board = createNewBoard();
@@ -81,13 +82,41 @@ describe("Pieces Moves - Pawn Logic", () => {
     expect(moves).toEqual([[6,0],[5,0],[4,0],[3,0],[2,0],[1,0]]);
   })
 
-  it("Alfil Testiar Movimientos",()=>{
-    const board = createEmptyBoard();
-    const whiteBishop=createPieceToTest(board,"♝","white",[7,2])
+  it("Alfil debería moverse en diagonales", () => {
+        const board = createEmptyBoard();
+        const whiteBishop=createPieceToTest(board,"♝","white",[3,3])
+        board[3][3] = whiteBishop.type
+        
+        const moves = getPosibelsMoves(whiteBishop, true, board);
+        expect(moves).toContainEqual([0, 0]);
+        expect(moves).toContainEqual([0, 6]); 
+        expect(moves).toContainEqual([6, 0]);
+        expect(moves).toContainEqual([7, 7]);
+    });
     
-    const moves = getPosibelsMoves(whiteBishop,true,board)
-    expect(moves).toEqual([[6,1],[5,0],[6,3],[5,4],[4,5],[3,6],[2,7]])
-  })
+    it("Alfil bloqueado por piezas aliadas", () => {
+        const board = createEmptyBoard();
+        const whiteBishop=createPieceToTest(board,"♝","white",[3,3])
+        board[3][3] = whiteBishop.type;
+        board[2][2] = createPieceToTest(board,"♟","white",[2,2]).type;
+        board[2][4] = createPieceToTest(board,"♟","white",[2,4]).type;
+        
+        const moves = getPosibelsMoves(whiteBishop, true, board);
+        expect(moves).not.toContainEqual([2, 2]);
+        expect(moves).not.toContainEqual([2, 4]);
+    });
+    
+    it("Alfil captura piezas enemigas", () => {
+        const board = createEmptyBoard();
+        const whiteBishop=createPieceToTest(board,"♝","white",[3,3])
+        board[3][3] = whiteBishop.type;
+        board[1][1] = board[2][4] = createPieceToTest(board,"♟","black",[1,1]).type;  
+        const moves = getPosibelsMoves(whiteBishop, true, board);
+        
+        expect(moves).toContainEqual([1, 1]);
+        expect(moves).not.toContainEqual([0, 0]);
+    });
+
 });
 
 const createEmptyBoard=()=>{

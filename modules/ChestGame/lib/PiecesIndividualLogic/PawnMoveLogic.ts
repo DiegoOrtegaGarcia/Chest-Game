@@ -1,9 +1,10 @@
 import { Piece } from "../../types/chestGameTypes";
-import { getPieceAt } from "../piecesMovesUtils";
+import { getPieceAt } from "./GeneralPieceLogic";
 
 
-export const getPawnMoves = (piece: Piece, [row, col] : [number,number], teamSelection: boolean, board : Piece[][]) => {
+export const getPawnMoves = (piece: Piece, position : [number,number], teamSelection: boolean, board : Piece[][]) => {
     const direction = getPawnDirection(piece.team, teamSelection);
+    const [row, col] = position;
     const forwardOne: [number, number] = [row + direction, col];
     const pieceAhead = getPieceAt(board, forwardOne);
     const posiblesMoves = []
