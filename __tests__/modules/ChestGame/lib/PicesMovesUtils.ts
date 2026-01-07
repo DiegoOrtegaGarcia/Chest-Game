@@ -89,14 +89,14 @@ describe("Pieces Moves - Pawn Logic", () => {
   });
 
   it("Torre deberia poder caminar hacia Arriba",()=>{
-    const board = createEmptyBoard();
-    board[7][0] = { value: "♜", team: "white" }
+    const board = createNewBoard();
     const piece = {
       type: board[7][0],
       positon: [7, 0] as [number, number]
     };
+    board[6][0] = {value:" ",team:'empty'}
     const moves = getPosibelsMoves(piece, true, board);
-    expect(moves).toEqual([[6,0],[5,0],[4,0],[3,0],[2,0],[1,0],[0,0]]);
+    expect(moves).toEqual([[6,0],[5,0],[4,0],[3,0],[2,0],[1,0]]);
   })
 });
 
