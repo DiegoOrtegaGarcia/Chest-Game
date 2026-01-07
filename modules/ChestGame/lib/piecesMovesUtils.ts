@@ -1,84 +1,20 @@
-import { Piece } from "../types/chestGameTypes"
-
-interface PieceWithPosition {
-  type: Piece;
-  positon: [number, number];
-}
+import { Piece, PieceWithPosition } from "../types/chestGameTypes"
+import { getPawnMoves } from "./PiecesIndividualLogic/PawnMoveLogic";
+import { getRookMoves } from "./PiecesIndividualLogic/RookMoveLogic";
 
 export const getPosibelsMoves = (pieceWithPos: PieceWithPosition,teamSelection: boolean,board: Piece[][]): [number, number][] => {
   const { type: piece, positon } = pieceWithPos;
   const [row, col] = positon;
   const posiblesMoves: [number, number][] = [];
 
-  if (piece.value === "♟") {
-    const direction = getPawnDirection(piece.team, teamSelection);
-    
-    const forwardOne: [number, number] = [row + direction, col];
-    const pieceAhead = getPieceAt(board, forwardOne);
-    
-    if (pieceAhead?.value === " ") {
-      posiblesMoves.push(forwardOne);
-      
-      const isInitialRow = (piece.team === "white" && row === 6) || (piece.team === "black" && row === 1);
-      
-      if (isInitialRow) {
-        const forwardTwo: [number, number] = [row + (2 * direction), col];
-        const pieceTwoAhead = getPieceAt(board, forwardTwo);
-        if (pieceTwoAhead?.value === " ") {
-          posiblesMoves.push(forwardTwo);
-        }
-      }
+  switch (piece.value) {
+        case "♟":
+            return getPawnMoves(piece, [row, col], teamSelection, board);
+        case "♜":
+            return getRookMoves(piece, [row, col], board);
+        default:
+            return posiblesMoves;
     }
-
-    const captureOffsets: [number, number][] = [
-      [direction, 1],
-      [direction, -1]
-    ];
-
-    for (const [dRow, dCol] of captureOffsets) {
-      const capturePos: [number, number] = [row + dRow, col + dCol];
-      const targetPiece = getPieceAt(board, capturePos);
-      
-      if (targetPiece && targetPiece.value !== " " && targetPiece.team !== piece.team) {
-        posiblesMoves.push(capturePos);
-      }
-    }
-  }
-
-  if(piece.value === "♜"){
-    const directions = [[-1,0], [1,0], [0,-1], [0,1]];
-    
-    for(const [dRow, dCol] of directions) {
-    for(let step = 1; step < 8; step++) {
-        const newRow = row + step * dRow;
-        const newCol = col + step * dCol;
-        const targetPos: [number, number] = [newRow, newCol];
-        
-        if(!isValidPosition(targetPos)) break;
-        
-        const targetPiece = getPieceAt(board, targetPos);
-        
-        if(targetPiece?.value === " ") {
-            posiblesMoves.push(targetPos);
-            continue;
-        }
-        
-        if(targetPiece && targetPiece.team !== piece.team) {
-            posiblesMoves.push(targetPos);
-        }
-        break;
-    }
-}
-}
-  return posiblesMoves;
-};
-
-const getPawnDirection = (team: string, teamSelection: boolean): number => {
-  if (team === "white") {
-    return teamSelection ? -1 : 1;
-  } else {
-    return teamSelection ? 1 : -1;
-  }
 };
 
 export const isValidPosition = (position: [number, number]): boolean => {
@@ -90,3 +26,4 @@ export const getPieceAt = (board: Piece[][], position: [number, number]): Piece 
   if (!isValidPosition(position)) return null;
   return board[position[0]][position[1]];
 };
+
