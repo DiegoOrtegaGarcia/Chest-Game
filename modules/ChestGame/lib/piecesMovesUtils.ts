@@ -3,9 +3,8 @@ import { getBishopMoves } from "./PiecesIndividualLogic/BishopMoveLogic";
 import { getPawnMoves } from "./PiecesIndividualLogic/PawnMoveLogic";
 import { getRookMoves } from "./PiecesIndividualLogic/RookMoveLogic";
 
-export const getPosibelsMoves = (pieceWithPos: PieceWithPosition,teamSelection: boolean,board: Piece[][]): [number, number][] => {
+export const getPosibelsMoves = (pieceWithPos: PieceWithPosition,teamSelection: boolean,board: Piece[][]): [number, number][] | null => {
   const { type: piece, positon } = pieceWithPos;
-  const posiblesMoves: [number, number][] = [];
 
   switch (piece.value) {
         case "♟":
@@ -15,6 +14,6 @@ export const getPosibelsMoves = (pieceWithPos: PieceWithPosition,teamSelection: 
         case '♝':
             return getBishopMoves(piece,positon,board)
         default:
-            return posiblesMoves;
+            return null;
     }
 };

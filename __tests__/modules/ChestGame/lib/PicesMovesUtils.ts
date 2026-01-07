@@ -13,6 +13,15 @@ describe("Pieces Moves", () => {
     expect(getPieceAt(board,wrongPositon)).toEqual(null)
     expect(getPieceAt(board,correctPosition)).toEqual(board[0][0])
   })
+
+  it("Comprobar que cuando se pasa un valor que no es el de una ficha devuelve null",()=>{
+    const board = createEmptyBoard();
+    const wrongPieceValue=createPieceToTest(board,"1","black",[5,3])
+    board[0][0] = wrongPieceValue.type
+
+    expect(getPosibelsMoves(wrongPieceValue, true, board)).toBeNull()
+  })
+
   it("Peon No deberia poder Moverve por que esta bloqueado", () => {
     const board = createNewBoard();
     const whitePawn = createPieceToTest(board,"♟","white",[6,3])
@@ -21,6 +30,7 @@ describe("Pieces Moves", () => {
     const moves = getPosibelsMoves(whitePawn, true, board);
     expect(moves).toEqual([]);
   });
+
   it("Peon No deberia poder Moverve por que esta bloqueado pero ahora del otro equipo", () => {
     const board = createNewBoard();
     const blackPawn = createPieceToTest(board,"♟","black",[1,3])
