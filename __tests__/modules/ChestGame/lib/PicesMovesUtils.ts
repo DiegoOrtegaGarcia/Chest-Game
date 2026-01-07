@@ -17,7 +17,6 @@ describe("Pieces Moves", () => {
   it("Comprobar que cuando se pasa un valor que no es el de una ficha devuelve null",()=>{
     const board = createEmptyBoard();
     const wrongPieceValue=createPieceToTest(board,"1","black",[5,3])
-    board[0][0] = wrongPieceValue.type
 
     expect(getPosibelsMoves(wrongPieceValue, true, board)).toBeNull()
   })
@@ -93,40 +92,62 @@ describe("Pieces Moves", () => {
   })
 
   it("Alfil debería moverse en diagonales", () => {
-        const board = createEmptyBoard();
-        const whiteBishop=createPieceToTest(board,"♝","white",[3,3])
-        board[3][3] = whiteBishop.type
-        
-        const moves = getPosibelsMoves(whiteBishop, true, board);
-        expect(moves).toContainEqual([0, 0]);
-        expect(moves).toContainEqual([0, 6]); 
-        expect(moves).toContainEqual([6, 0]);
-        expect(moves).toContainEqual([7, 7]);
+      const board = createEmptyBoard();
+      const whiteBishop=createPieceToTest(board,"♝","white",[3,3])
+      const moves = getPosibelsMoves(whiteBishop, true, board);
+
+      expect(moves).toContainEqual([0, 0]);
+      expect(moves).toContainEqual([0, 6]); 
+      expect(moves).toContainEqual([6, 0]);
+      expect(moves).toContainEqual([7, 7]);
     });
     
     it("Alfil bloqueado por piezas aliadas", () => {
-        const board = createEmptyBoard();
-        const whiteBishop=createPieceToTest(board,"♝","white",[3,3])
-        board[3][3] = whiteBishop.type;
-        board[2][2] = createPieceToTest(board,"♟","white",[2,2]).type;
-        board[2][4] = createPieceToTest(board,"♟","white",[2,4]).type;
-        
-        const moves = getPosibelsMoves(whiteBishop, true, board);
-        expect(moves).not.toContainEqual([2, 2]);
-        expect(moves).not.toContainEqual([2, 4]);
+      const board = createEmptyBoard();
+      const whiteBishop=createPieceToTest(board,"♝","white",[3,3])
+      createPieceToTest(board,"♟","white",[2,2]);
+      createPieceToTest(board,"♟","white",[2,4]);
+      
+      const moves = getPosibelsMoves(whiteBishop, true, board);
+      expect(moves).not.toContainEqual([2, 2]);
+      expect(moves).not.toContainEqual([2, 4]);
     });
     
     it("Alfil captura piezas enemigas", () => {
-        const board = createEmptyBoard();
-        const whiteBishop=createPieceToTest(board,"♝","white",[3,3])
-        board[3][3] = whiteBishop.type;
-        board[1][1] = board[2][4] = createPieceToTest(board,"♟","black",[1,1]).type;  
-        const moves = getPosibelsMoves(whiteBishop, true, board);
-        
-        expect(moves).toContainEqual([1, 1]);
-        expect(moves).not.toContainEqual([0, 0]);
+      const board = createEmptyBoard();
+      const whiteBishop=createPieceToTest(board,"♝","white",[3,3])
+      createPieceToTest(board,"♟","black",[1,1]);
+      createPieceToTest(board,"♟","black",[2,4]);    
+      const moves = getPosibelsMoves(whiteBishop, true, board);
+      
+      expect(moves).toContainEqual([1, 1]);
+      expect(moves).not.toContainEqual([0, 0]);
     });
 
+    it("Caballo no puede moverse a casillas con piezas aliadas", () => {
+      const board = createEmptyBoard();
+      const whiteHorse = createPieceToTest(board,"♞","white",[4,4])
+      createPieceToTest(board,"♟","white",[2,3])
+     
+      const moves = getPosibelsMoves(whiteHorse, true, board);
+      expect(moves).not.toContainEqual([2, 3]);
+      expect(moves).toContainEqual([2, 5]);
+    });
+
+  it("Caballo puede capturar piezas enemigas", () => {
+      const board = createEmptyBoard();
+      const whiteHorse = createPieceToTest(board,"♞","white",[4,4])
+      createPieceToTest(board,"♟","black",[2,5])
+      
+      const moves = getPosibelsMoves(whiteHorse, true, board);
+      expect(moves).toContainEqual([2, 5]);
+  });
+  it("Caballor en el borde no deberia salirse del board",()=>{
+      const board = createEmptyBoard();
+      const whiteHorse = createPieceToTest(board,"♞","white",[0,7])
+      const moves = getPosibelsMoves(whiteHorse, true, board);
+      expect(moves).not.toContainEqual([1,9])
+  })
 });
 
 const createEmptyBoard=()=>{

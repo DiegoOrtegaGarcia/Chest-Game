@@ -1,5 +1,6 @@
 import { Piece, PieceWithPosition } from "../types/chestGameTypes"
 import { getBishopMoves } from "./PiecesIndividualLogic/BishopMoveLogic";
+import { getHorseMoves } from "./PiecesIndividualLogic/HorseMoveLogic";
 import { getPawnMoves } from "./PiecesIndividualLogic/PawnMoveLogic";
 import { getRookMoves } from "./PiecesIndividualLogic/RookMoveLogic";
 
@@ -13,6 +14,8 @@ export const getPosibelsMoves = (pieceWithPos: PieceWithPosition,teamSelection: 
             return getRookMoves(piece, positon, board);
         case '♝':
             return getBishopMoves(piece,positon,board)
+        case '♞':
+            return getHorseMoves(piece,positon,board) 
         default:
             return null;
     }
