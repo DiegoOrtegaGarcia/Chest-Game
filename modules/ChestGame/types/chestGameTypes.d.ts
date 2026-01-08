@@ -5,5 +5,5 @@ export interface Piece {
 
 export interface PieceWithPosition {
   type: Piece;
-  positon: [number, number];
+  position: [number, number];
 }

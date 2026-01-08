@@ -1,15 +1,7 @@
+import { BOARD_SIZE, PIECES } from '@/core/constants/constants';
 import { createNewBoard} from '@/modules/ChestGame/lib/chestGameUtilts';
 import '@testing-library/jest-dom'
- 
-const PIECES = {
-  EMPTY: " ",
-  PAWN: '♟',
-  ROOK: '♜' ,
-  KNIGHT: '♞',
-  BISHOP: '♝' ,
-  QUEEN: '♛' ,
-  KING: '♚' ,
-};
+
 const teamSelection = false ;
 
 const selectTeamByChoice = (teamSelection:boolean)=>{
@@ -32,10 +24,10 @@ describe('Home', () => {
   it('Create a 8x8 Array', () => {
     const board = createNewBoard(teamSelection);
     expect(Array.isArray(board)).toBe(true);
-    expect(board).toHaveLength(8)
+    expect(board).toHaveLength(BOARD_SIZE)
     
     board.forEach((row)=>{
-        expect(row).toHaveLength(8)
+        expect(row).toHaveLength(BOARD_SIZE)
     })
   })
 

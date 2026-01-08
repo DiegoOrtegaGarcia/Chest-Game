@@ -1,8 +1,9 @@
+import { BOARD_SIZE, PIECES } from "@/core/constants/constants";
 import { Piece } from "../../types/chestGameTypes";
 
 export const isValidPosition = (position: [number, number]): boolean => {
   const [row, col] = position;
-  return row >= 0 && row < 8 && col >= 0 && col < 8;
+  return row >= 0 && row < BOARD_SIZE && col >= 0 && col < BOARD_SIZE;
 };
 
 export const getPieceAt = (board: Piece[][], position: [number, number]): Piece | null => {
@@ -14,9 +15,8 @@ export const getAllPossibleMovesByDirection  = (piece: Piece,startPosition: [num
     const [row, col] = startPosition;
     const [dRow, dCol] = direction;
     const moves: [number, number][] = [];
-    const maxSteps: number = 8
 
-    for(let step = 1; step < maxSteps; step++) {
+    for(let step = 1; step <BOARD_SIZE; step++) {
       const newRow = row + step * dRow;
       const newCol = col + step * dCol;
       const targetPos: [number, number] = [newRow, newCol];
@@ -25,7 +25,7 @@ export const getAllPossibleMovesByDirection  = (piece: Piece,startPosition: [num
       
       const targetPiece = getPieceAt(board, targetPos);
       
-      if(targetPiece?.value === " ") {
+      if(targetPiece?.value === PIECES.EMPTY) {
           moves.push(targetPos);
           continue;
       }
@@ -34,6 +34,22 @@ export const getAllPossibleMovesByDirection  = (piece: Piece,startPosition: [num
           moves.push(targetPos);
       }
       break;
+    }
+    return moves
+}
+
+export const getAllMovesSpecificUbication =(positionToIterate: [number,number][],board : Piece[][],piece:Piece) =>{
+    const moves :[number,number][] = []
+    for (const [newRow, newCol] of positionToIterate) {
+      const targetPos: [number, number] = [newRow, newCol];
+      
+      if (!isValidPosition(targetPos)) continue;
+      
+      const targetPiece = getPieceAt(board, targetPos);
+      
+      if (targetPiece && targetPiece.value === PIECES.EMPTY || targetPiece &&  targetPiece.team !== piece.team) {
+        moves.push(targetPos);
+      }
     }
     return moves
 }

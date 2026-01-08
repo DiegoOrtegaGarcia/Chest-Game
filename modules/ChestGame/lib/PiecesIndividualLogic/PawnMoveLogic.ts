@@ -1,3 +1,4 @@
+import { PIECES } from "@/core/constants/constants";
 import { Piece } from "../../types/chestGameTypes";
 import { getPieceAt } from "./GeneralPieceLogic";
 
@@ -7,18 +8,18 @@ export const getPawnMoves = (piece: Piece, position : [number,number], teamSelec
     const [row, col] = position;
     const forwardOne: [number, number] = [row + direction, col];
     const pieceAhead = getPieceAt(board, forwardOne);
-    const posiblesMoves = []
+    const possibleMoves = []
     
-    if (pieceAhead?.value === " ") {
-      posiblesMoves.push(forwardOne);
+    if (pieceAhead?.value === PIECES.EMPTY) {
+      possibleMoves.push(forwardOne);
       
       const isInitialRow = (piece.team === "white" && row === 6) || (piece.team === "black" && row === 1);
       
       if (isInitialRow) {
         const forwardTwo: [number, number] = [row + (2 * direction), col];
         const pieceTwoAhead = getPieceAt(board, forwardTwo);
-        if (pieceTwoAhead?.value === " ") {
-          posiblesMoves.push(forwardTwo);
+        if (pieceTwoAhead?.value === PIECES.EMPTY) {
+          possibleMoves.push(forwardTwo);
         }
       }
     }
@@ -32,12 +33,12 @@ export const getPawnMoves = (piece: Piece, position : [number,number], teamSelec
       const capturePos: [number, number] = [row + dRow, col + dCol];
       const targetPiece = getPieceAt(board, capturePos);
       
-      if (targetPiece && targetPiece.value !== " " && targetPiece.team !== piece.team) {
-        posiblesMoves.push(capturePos);
+      if (targetPiece && targetPiece.value !== PIECES.EMPTY && targetPiece.team !== piece.team) {
+        possibleMoves.push(capturePos);
       }
     }
 
-    return posiblesMoves
+    return possibleMoves
   }
 
   const getPawnDirection = (team: string, teamSelection: boolean): number => {
