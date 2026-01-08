@@ -18,4 +18,12 @@ describe("King Moves Logic",()=>{
       const moves = getPossibleMoves(whiteKing, true, board);
       expect(moves).toEqual([[0, 1],[1,0],[1,1]]);
     });
+
+    it("No deberia poder moverse adelante pq ese lugar esta amenzado",()=>{
+        const board = createEmptyBoard();
+        const whiteKing = createPieceToTest(board, PIECES.KING, "white", [0, 0]);
+        createPieceToTest(board,PIECES.BISHOP,"black",[1,1])
+        const moves = getPossibleMoves(whiteKing,true,board)
+        expect(moves).not.toContainEqual([1,1])
+    })
 })
