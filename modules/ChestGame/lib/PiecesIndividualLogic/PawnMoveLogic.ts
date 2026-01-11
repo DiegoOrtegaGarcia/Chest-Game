@@ -1,9 +1,15 @@
 import { PIECES } from "@/core/constants/constants";
 import { Piece } from "../../types/chestGameTypes";
-import { getPieceAt } from "./GeneralPieceLogic";
+import {  getPieceAt } from "./GeneralPieceLogic";
+import { filterMovesThatExposeCheck } from "../chestGameUtilts";
 
 
 export const getPawnMoves = (piece: Piece, position : [number,number], teamSelection: boolean, board : Piece[][]) => {
+    const basicMoves = getPawnBasicMoves(piece,position,teamSelection,board)
+    return filterMovesThatExposeCheck(piece, position, basicMoves, board);
+  }
+
+export const getPawnBasicMoves = (piece: Piece, position : [number,number], teamSelection: boolean, board : Piece[][]) => {
     const direction = getPawnDirection(piece.team, teamSelection);
     const [row, col] = position;
     const forwardOne: [number, number] = [row + direction, col];

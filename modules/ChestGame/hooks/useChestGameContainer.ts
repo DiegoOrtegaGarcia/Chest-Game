@@ -8,7 +8,7 @@ export const useChestGameContainer =()=>{
 
     const selectBoxColor = (rowIndex: number, colIndex: number) => {
         const result = (rowIndex + colIndex) % 2
-        return result ? "bg-amber-800" : "bg-amber-100"   
+        return result ? "bg-amber-200" : "bg-amber-800"   
     }
 
     const selectPiecesColor = (team:string)=>{

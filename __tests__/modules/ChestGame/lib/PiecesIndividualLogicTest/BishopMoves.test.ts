@@ -6,6 +6,7 @@ describe('Bishop Move Logic',()=>{
      it("Alfil debería moverse en diagonales", () => {
         const board = createEmptyBoard();
         const whiteBishop=createPieceToTest(board,PIECES.BISHOP,"white",[3,3])
+        createPieceToTest(board,PIECES.BISHOP,"white",[7,3])
         const moves = getPossibleMoves(whiteBishop, true, board);
 
         expect(moves).toContainEqual([0, 0]);

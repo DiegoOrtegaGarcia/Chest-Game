@@ -9,6 +9,6 @@ describe('useChestGameContainerHook', () => {
     const rowIndex = 4
     const colIndex =2
     const color = result.current.selectBoxColor(rowIndex,colIndex)
-    expect (color).toEqual("bg-amber-100")
+    expect (color).toEqual("bg-amber-800")
   })
 })
