@@ -1,5 +1,5 @@
 import { BOARD_SIZE, PIECES } from '@/core/constants/constants';
-import { createNewBoard} from '@/modules/ChestGame/lib/chestGameUtilts';
+import { createNewBoard } from '@/modules/ChestGame/lib/board/boardUtils';
 import '@testing-library/jest-dom'
 
 const teamSelection = false ;

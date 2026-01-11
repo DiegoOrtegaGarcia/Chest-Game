@@ -1,6 +1,7 @@
-import { createNewBoard } from "@/modules/ChestGame/lib/chestGameUtilts"
+
 import { useState } from "react"
 import { Piece } from "../types/chestGameTypes"
+import { createNewBoard } from "../lib/board/boardUtils"
 
 export const useChestGameContainer =()=>{
 

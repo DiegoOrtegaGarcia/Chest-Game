@@ -1,7 +1,7 @@
 import { PIECES } from "@/core/constants/constants";
 import { Piece } from "../../types/chestGameTypes";
-import {  getPieceAt } from "./GeneralPieceLogic";
-import { filterMovesThatExposeCheck } from "../chestGameUtilts";
+import { filterMovesThatExposeCheck } from "../moves/piecesMovesUtils";
+import { getPieceAt } from "../board/boardUtils";
 
 
 export const getPawnMoves = (piece: Piece, position : [number,number], teamSelection: boolean, board : Piece[][]) => {

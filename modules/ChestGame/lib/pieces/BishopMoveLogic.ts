@@ -1,6 +1,6 @@
 import { Piece } from "../../types/chestGameTypes"
-import { filterMovesThatExposeCheck } from "../chestGameUtilts";
-import { getAllPossibleMovesByDirection } from "./GeneralPieceLogic";
+import { getAllPossibleMovesByDirection } from "../moves/GeneralPieceLogic";
+import { filterMovesThatExposeCheck } from "../moves/piecesMovesUtils";
 
 export const getBishopMoves = (piece : Piece, position :[number,number], board : Piece[][]) => {
     const basicMoves = getBishopBasicMoves(piece,position,board)

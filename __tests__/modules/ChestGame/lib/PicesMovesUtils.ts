@@ -1,7 +1,6 @@
 import { BOARD_SIZE, PIECES } from '@/core/constants/constants';
-import { createNewBoard } from '@/modules/ChestGame/lib/chestGameUtilts';
-import { getPieceAt } from '@/modules/ChestGame/lib/PiecesIndividualLogic/GeneralPieceLogic';
-import { getPossibleMoves } from '@/modules/ChestGame/lib/piecesMovesUtils';
+import { createNewBoard, getPieceAt } from '@/modules/ChestGame/lib/board/boardUtils';
+import { getPossibleMoves } from '@/modules/ChestGame/lib/moves/piecesMovesUtils';
 import { Piece } from '@/modules/ChestGame/types/chestGameTypes';
 
 describe("Pieces Moves", () => {

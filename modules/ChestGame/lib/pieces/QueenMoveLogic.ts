@@ -1,6 +1,6 @@
 import { Piece } from "../../types/chestGameTypes"
-import { filterMovesThatExposeCheck } from "../chestGameUtilts";
-import { getAllPossibleMovesByDirection } from "./GeneralPieceLogic";
+import { filterMovesThatExposeCheck } from "../moves/piecesMovesUtils";
+import { getAllPossibleMovesByDirection } from "../moves/GeneralPieceLogic";
 
 export const getQueenMoves = (piece : Piece, position :[number,number], board : Piece[][]) => {
     const basicMoves = getQueenBasicMoves(piece,position,board)

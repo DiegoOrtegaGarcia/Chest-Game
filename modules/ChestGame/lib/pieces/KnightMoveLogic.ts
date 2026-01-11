@@ -1,6 +1,6 @@
 import { Piece } from "../../types/chestGameTypes";
-import { filterMovesThatExposeCheck } from "../chestGameUtilts";
-import {  getAllMovesSpecificUbication} from "./GeneralPieceLogic";
+import { filterMovesThatExposeCheck } from "../moves/piecesMovesUtils";
+import {  getAllMovesSpecificUbication} from "../moves/GeneralPieceLogic";
 
 export const getKnightMoves = (piece: Piece,position: [number, number],board: Piece[][]): [number, number][] => {
   const basicMoves = getKnightBasicMoves(piece,position,board)

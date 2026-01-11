@@ -1,6 +1,6 @@
-import { BOARD_SIZE, PIECES } from "@/core/constants/constants";
-import { Piece } from "../types/chestGameTypes";
-import { isSquareUnderAttack } from "./PiecesIndividualLogic/GeneralPieceLogic";
+import { BOARD_SIZE, PIECES } from "@/core/constants/constants"
+import { Piece } from "../../types/chestGameTypes"
+import { isSquareUnderAttack } from "../moves/GeneralPieceLogic"
 
 export const createNewBoard = (teamSelection: boolean = true) => {
     const board : Piece[][] = []
@@ -27,6 +27,19 @@ const selectTeamByChoice = (teamSelection:boolean)=>{
     return teamSelection ? "black" :"white"
 }
 
+
+export const isValidPosition = (position: [number, number]): boolean => {
+  const [row, col] = position;
+  return row >= 0 && row < BOARD_SIZE && col >= 0 && col < BOARD_SIZE;
+};
+
+export const getPieceAt = (board: Piece[][], position: [number, number]): Piece | null => {
+  if (!isValidPosition(position)) return null;
+  return board[position[0]][position[1]];
+};
+
+
+
 export const isKingInCheck = (kingTeam: string,board: Piece[][])=> {
     let kingPosition: [number, number] | null = null;
 
@@ -45,28 +58,4 @@ export const isKingInCheck = (kingTeam: string,board: Piece[][])=> {
         return isSquareUnderAttack(kingPosition, kingTeam, board);
     }
     
-};
-
-export const filterMovesThatExposeCheck = (piece: Piece,startPosition: [number, number],basicMoves: [number, number][],board: Piece[][]): [number, number][] => {
-    const validMoves: [number, number][] = [];
-
-    for (const targetPos of basicMoves) {
-        const simulatedBoard = simulateMove(board, startPosition, targetPos, piece);
-        if (!isKingInCheck(piece.team, simulatedBoard)) {
-            validMoves.push(targetPos);
-        }
-    }
-
-    return validMoves;
-};
-
-export const simulateMove = (board: Piece[][],from: [number, number],to: [number, number],movingPiece: Piece): Piece[][] => {
-    const newBoard = [...board];
-    newBoard[from[0]] = [...board[from[0]]];
-    newBoard[to[0]] = board[to[0]] === board[from[0]] ? newBoard[from[0]] : [...board[to[0]]];
-    
-    newBoard[from[0]][from[1]] = { value: PIECES.EMPTY, team: 'empty' };
-    newBoard[to[0]][to[1]] = { ...movingPiece };
-    
-    return newBoard;
 };

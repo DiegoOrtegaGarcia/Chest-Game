@@ -1,7 +1,7 @@
-import { createNewBoard } from "@/modules/ChestGame/lib/chestGameUtilts";
 import { createPieceToTest } from "../PicesMovesUtils";
-import { getPossibleMoves } from "@/modules/ChestGame/lib/piecesMovesUtils";
+import { getPossibleMoves } from "@/modules/ChestGame/lib/moves/piecesMovesUtils";
 import { PIECES } from "@/core/constants/constants";
+import { createNewBoard } from "@/modules/ChestGame/lib/board/boardUtils";
 
 describe("Torre Move Logig Tests",()=>{
     it("Torre deberia poder caminar hacia Arriba",()=>{

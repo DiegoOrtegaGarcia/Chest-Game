@@ -1,17 +1,7 @@
 import { BOARD_SIZE, PIECES } from "@/core/constants/constants";
 import { Piece } from "../../types/chestGameTypes";
-import { getBasicMoves } from "../piecesMovesUtils";
-import { isKingInCheck } from "../chestGameUtilts";
-
-export const isValidPosition = (position: [number, number]): boolean => {
-  const [row, col] = position;
-  return row >= 0 && row < BOARD_SIZE && col >= 0 && col < BOARD_SIZE;
-};
-
-export const getPieceAt = (board: Piece[][], position: [number, number]): Piece | null => {
-  if (!isValidPosition(position)) return null;
-  return board[position[0]][position[1]];
-};
+import { getBasicMoves } from "./piecesMovesUtils";
+import { getPieceAt, isValidPosition } from "../board/boardUtils";
 
 export const getAllPossibleMovesByDirection  = (piece: Piece,startPosition: [number, number],direction: [number, number],board: Piece[][]) =>{
     const [row, col] = startPosition;

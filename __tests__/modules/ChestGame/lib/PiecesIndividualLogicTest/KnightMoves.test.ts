@@ -1,6 +1,6 @@
 import { PIECES } from "@/core/constants/constants";
 import { createEmptyBoard, createPieceToTest } from "../PicesMovesUtils";
-import { getPossibleMoves } from "@/modules/ChestGame/lib/piecesMovesUtils";
+import { getPossibleMoves } from "@/modules/ChestGame/lib/moves/piecesMovesUtils";
 
 describe("Knight Move Logic", () =>{
     it("Caballo no puede moverse a casillas con piezas aliadas", () => {

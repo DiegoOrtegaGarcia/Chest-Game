@@ -1,5 +1,5 @@
 import { Piece } from "../../types/chestGameTypes";
-import { getAllMovesSpecificUbication, isSquareUnderAttack} from "./GeneralPieceLogic";
+import { getAllMovesSpecificUbication, isSquareUnderAttack} from "../moves/GeneralPieceLogic";
 
 export const getKingMoves = (piece : Piece, position :[number,number], board : Piece[][]) => {
     const basicMoves = getKingBasicMoves(piece,position,board)
