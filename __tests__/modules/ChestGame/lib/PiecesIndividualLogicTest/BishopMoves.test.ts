@@ -1,5 +1,5 @@
 import { getPossibleMoves } from "@/modules/ChestGame/lib/moves/piecesMovesUtils";
-import { createEmptyBoard, createPieceToTest } from "../PicesMovesUtils";
+import { createEmptyBoard, createPieceToTest } from "../PicesMovesUtils.test";
 import { PIECES } from "@/core/constants/constants";
 
 describe('Bishop Move Logic',()=>{

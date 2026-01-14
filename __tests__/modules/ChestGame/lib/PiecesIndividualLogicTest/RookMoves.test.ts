@@ -1,4 +1,4 @@
-import { createPieceToTest } from "../PicesMovesUtils";
+import { createPieceToTest } from "../PicesMovesUtils.test";
 import { getPossibleMoves } from "@/modules/ChestGame/lib/moves/piecesMovesUtils";
 import { PIECES } from "@/core/constants/constants";
 import { createNewBoard } from "@/modules/ChestGame/lib/board/boardUtils";

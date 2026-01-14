@@ -1,7 +1,7 @@
 import { BOARD_SIZE, PIECES } from '@/core/constants/constants';
 import { createNewBoard } from '@/modules/ChestGame/lib/board/boardUtils';
 import '@testing-library/jest-dom'
-import { createEmptyBoard, createPieceToTest } from './PicesMovesUtils';
+import { createEmptyBoard, createPieceToTest } from './PicesMovesUtils.test';
 import { isCheckMate } from '@/modules/ChestGame/lib/cheackLogic/checkLogis';
 import { getPossibleMoves } from '@/modules/ChestGame/lib/moves/piecesMovesUtils';
 

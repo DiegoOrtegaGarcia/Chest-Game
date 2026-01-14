@@ -1,5 +1,5 @@
 import { PIECES } from "@/core/constants/constants";
-import { createEmptyBoard, createPieceToTest } from "../PicesMovesUtils";
+import { createEmptyBoard, createPieceToTest } from "../PicesMovesUtils.test";
 import { getPossibleMoves } from "@/modules/ChestGame/lib/moves/piecesMovesUtils";
 
 describe("Knight Move Logic", () =>{
