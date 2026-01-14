@@ -1,5 +1,6 @@
 import { BOARD_SIZE, PIECES } from "@/core/constants/constants"
-import { Piece } from "../../types/chestGameTypes"
+import { Piece } from "@/core/types/coreTypes"
+
 
 export const createNewBoard = (teamSelection: boolean = true) => {
     const board : Piece[][] = []

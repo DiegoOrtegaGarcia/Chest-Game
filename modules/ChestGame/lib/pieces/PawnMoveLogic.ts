@@ -1,5 +1,5 @@
 import { PIECES } from "@/core/constants/constants";
-import { Piece } from "../../types/chestGameTypes";
+import { Piece } from "@/core/types/coreTypes";
 import { filterMovesThatExposeCheck } from "../moves/piecesMovesUtils";
 import { getPieceAt } from "../board/boardUtils";
 

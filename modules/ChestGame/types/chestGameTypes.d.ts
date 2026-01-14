@@ -1,9 +1,6 @@
-export interface Piece {
-    value: string;
-    team: 'white' | 'black' | 'empty';
-}
+import { Piece } from "@/core/types/coreTypes";
 
-export interface PieceWithPosition {
-  type: Piece;
-  position: [number, number];
+export interface PieceCellInterface {
+    piece : Piece,
+    position : [number,number]
 }

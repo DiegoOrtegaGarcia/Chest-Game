@@ -1,4 +1,4 @@
-import { Piece } from "../../types/chestGameTypes";
+import { Piece } from "@/core/types/coreTypes";
 import { isSquareUnderAttack } from "../cheackLogic/checkLogis";
 import { getAllMovesSpecificUbication} from "../moves/GeneralPieceLogic";
 

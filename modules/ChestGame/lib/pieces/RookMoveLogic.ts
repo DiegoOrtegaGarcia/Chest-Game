@@ -1,4 +1,4 @@
-import { Piece } from "../../types/chestGameTypes";
+import { Piece } from "@/core/types/coreTypes";
 import { filterMovesThatExposeCheck } from "../moves/piecesMovesUtils";
 import { getAllPossibleMovesByDirection } from "../moves/GeneralPieceLogic";
 

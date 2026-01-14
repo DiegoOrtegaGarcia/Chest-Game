@@ -1,6 +1,6 @@
 import { BOARD_SIZE, PIECES } from "@/core/constants/constants";
-import { Piece } from "../../types/chestGameTypes";
 import { getPieceAt, isValidPosition } from "../board/boardUtils";
+import { Piece } from "@/core/types/coreTypes";
 
 export const getAllPossibleMovesByDirection  = (piece: Piece,startPosition: [number, number],direction: [number, number],board: Piece[][]) =>{
     const [row, col] = startPosition;

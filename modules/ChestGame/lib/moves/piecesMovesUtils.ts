@@ -1,5 +1,4 @@
 import { PIECES } from "@/core/constants/constants";
-import { Piece, PieceWithPosition } from "../../types/chestGameTypes"
 import { getBishopBasicMoves, getBishopMoves } from "../pieces/BishopMoveLogic";
 import { getPawnBasicMoves, getPawnMoves } from "../pieces/PawnMoveLogic";
 import { getRookBasicMoves, getRookMoves } from "../pieces/RookMoveLogic";
@@ -7,6 +6,7 @@ import { getKnightBasicMoves, getKnightMoves } from "../pieces/KnightMoveLogic";
 import { getQueenBasicMoves, getQueenMoves } from "../pieces/QueenMoveLogic";
 import { getKingBasicMoves, getKingMoves } from "../pieces/KingMoveLogic";
 import { isKingInCheck } from "../cheackLogic/checkLogis";
+import { Piece, PieceWithPosition } from "@/core/types/coreTypes";
 
 export const getPossibleMoves = (pieceWithPos: PieceWithPosition,teamSelection: boolean,board: Piece[][]): [number, number][] | null => {
   const { type: piece, position } = pieceWithPos;

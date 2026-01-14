@@ -1,7 +1,7 @@
 import {BOARD_SIZE, PIECES } from "@/core/constants/constants";
-import { Piece } from "../../types/chestGameTypes";
 import { getBasicMoves, getPossibleMoves, simulateMove } from "../moves/piecesMovesUtils";
 import { getKingPosition } from "../board/boardUtils";
+import { Piece } from "@/core/types/coreTypes";
 
 export const isKingInCheck = (kingTeam: string,board: Piece[][])=> {
     const kingPosition: [number, number] | null = getKingPosition(kingTeam,board);
