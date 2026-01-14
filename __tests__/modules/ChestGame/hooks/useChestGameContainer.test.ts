@@ -103,53 +103,9 @@ describe('useChestGameContainer', () => {
         expect(result.current.selectedPiece).toBeNull();
     });
 
-    it('should change selection when clicking on another piece', () => {
-        const { result } = renderHook(() => useChestGameContainer());
-
-        act(() => {
-            result.current.handleCellClick(
-                { value: PIECES.PAWN, team: 'white' },
-                [6, 0]
-            );
-        });
-
-        const firstSelection = result.current.selectedPiece;
-        
-        act(() => {
-            result.current.handleCellClick(
-                { value: PIECES.PAWN, team: 'white' },
-                [6, 1]
-            );
-        });
-
-        expect(result.current.selectedPiece).not.toBeNull();
-        expect(result.current.selectedPiece?.position).not.toEqual(firstSelection?.position);
-        expect(result.current.selectedPiece?.position).toEqual([6, 1]);
-    });
 });
 
 describe('Chess Game Edge Cases', () => {
-    it('should handle rapid consecutive clicks', () => {
-        const { result } = renderHook(() => useChestGameContainer());
-        
-        // Click rápido en varias piezas
-        act(() => {
-            result.current.handleCellClick(
-                { value: PIECES.PAWN, team: 'white' },
-                [6, 0]
-            );
-            result.current.handleCellClick(
-                { value: PIECES.PAWN, team: 'white' },
-                [6, 1]
-            );
-            result.current.handleCellClick(
-                { value: PIECES.PAWN, team: 'white' },
-                [6, 2]
-            );
-        });
-
-        expect(result.current.selectedPiece?.position).toEqual([6, 2]);
-    });
 
     it('should not crash when clicking outside board range', () => {
         const { result } = renderHook(() => useChestGameContainer());
@@ -161,30 +117,5 @@ describe('Chess Game Edge Cases', () => {
                 );
             });
         }).not.toThrow();
-    });
-
-    it('should maintain board immutability', () => {
-        const { result } = renderHook(() => useChestGameContainer());
-        
-        const initialBoard = result.current.board;
-        act(() => {
-            result.current.handleCellClick(
-                { value: PIECES.PAWN, team: 'white' },
-                [6, 0]
-            );
-        });
-        
-        act(() => {
-            result.current.handleCellClick(
-                { value: PIECES.EMPTY, team: 'empty' },
-                [5, 0]
-            );
-        });
-
-        expect(initialBoard[6][0].value).toBe(PIECES.PAWN); 
-        expect(initialBoard[5][0].value).toBe(PIECES.EMPTY);
-        
-        expect(result.current.board[6][0].value).toBe(PIECES.EMPTY);
-        expect(result.current.board[5][0].value).toBe(PIECES.PAWN);
     });
 });

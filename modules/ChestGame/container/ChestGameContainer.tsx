@@ -5,11 +5,15 @@ import { PieceCell } from "../components/piecesCell"
 import { LETTERS } from "@/core/constants/constants"
 
 export default function ChestGameContainer() {
-    const { board,handleCellClick,possibleMoves } = useChestGameContainer()
+    const { board,handleCellClick,possibleMoves,turn } = useChestGameContainer()
     return (
         <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-black p-4">
             <h1 className="text-3xl font-bold text-white mb-8">Chess Game</h1>
-            
+            <div className="turn-indicator mb-4">
+                <h2 className="text-xl font-bold text-gray-200">
+                Turno de las {turn === "white" ? "Blancas" : "Negras"}
+                </h2>
+            </div>
             <div className="bg-amber-900 p-4 rounded-xl shadow-2xl">
                 
                 <div className="grid grid-cols-9 gap-0 border-2 border-amber-800 rounded overflow-hidden" data-testid="chess-board">
@@ -19,15 +23,8 @@ export default function ChestGameContainer() {
                                 {LETTERS[rowIndex]}
                             </div>
                             {row.map((box, colIndex) => (
-                                <div 
-                                    key={`${rowIndex}-${colIndex}`}
-                                    onClick={() => handleCellClick(box, [rowIndex, colIndex])}
-                                >
-                                    <PieceCell 
-                                        piece={box}
-                                        position={[rowIndex, colIndex]}
-                                        possibleMoves={possibleMoves}
-                                    />
+                                <div key={`${rowIndex}-${colIndex}`}onClick={() => handleCellClick(box, [rowIndex, colIndex])}>
+                                    <PieceCell piece={box}position={[rowIndex, colIndex]}possibleMoves={possibleMoves}/>
                                 </div>
                             ))}
                         </Fragment>
