@@ -1,6 +1,5 @@
 import { BOARD_SIZE, PIECES } from "@/core/constants/constants";
 import { Piece } from "../../types/chestGameTypes";
-import { getBasicMoves } from "./piecesMovesUtils";
 import { getPieceAt, isValidPosition } from "../board/boardUtils";
 
 export const getAllPossibleMovesByDirection  = (piece: Piece,startPosition: [number, number],direction: [number, number],board: Piece[][]) =>{
@@ -45,6 +44,3 @@ export const getAllMovesSpecificUbication =(positionToIterate: [number,number][]
     }
     return moves
 }
-
-
-

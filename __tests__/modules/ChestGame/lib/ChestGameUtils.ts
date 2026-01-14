@@ -3,6 +3,7 @@ import { createNewBoard } from '@/modules/ChestGame/lib/board/boardUtils';
 import '@testing-library/jest-dom'
 import { createEmptyBoard, createPieceToTest } from './PicesMovesUtils';
 import { isCheckMate } from '@/modules/ChestGame/lib/cheackLogic/checkLogis';
+import { getPossibleMoves } from '@/modules/ChestGame/lib/moves/piecesMovesUtils';
 
 const teamSelection = false ;
 
@@ -52,4 +53,21 @@ describe('Home', () => {
     createPieceToTest(board,PIECES.QUEEN,'black',[0,7])
     expect(isCheckMate("white",board)).toBe(true)
   })
+
+  it("Verificar que si no esta en jacke el rey no hay jacke mate",()=>{
+    const board = createNewBoard()
+    expect(isCheckMate("white",board)).toBe(false)
+  })
+
+  it("Verificar que el rey pueda ser salvado de jacke mate por un aliado",()=>{
+    const board = createEmptyBoard()
+    createPieceToTest(board,PIECES.KING,"white",[7,0])
+    createPieceToTest(board,PIECES.PAWN,"white",[6,0])
+    const whiteKnight =createPieceToTest(board,PIECES.KNIGHT,"white",[5,0])
+    createPieceToTest(board,PIECES.ROOK,"black",[7,4])
+    const posibleMoves = getPossibleMoves(whiteKnight,false,board)
+    expect(posibleMoves).toEqual([[7,1]])
+    expect(isCheckMate("white",board)).toBe(false)
+  })
+  
 })
