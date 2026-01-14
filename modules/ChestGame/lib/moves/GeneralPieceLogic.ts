@@ -47,22 +47,4 @@ export const getAllMovesSpecificUbication =(positionToIterate: [number,number][]
 }
 
 
-export const isSquareUnderAttack = (position: [number, number],defendingTeam: string,board: Piece[][]): boolean => {
-  const [targetRow, targetCol] = position;
-
-  for (let row = 0; row < BOARD_SIZE; row++) {
-    for (let col = 0; col < BOARD_SIZE; col++) {
-      const attackerPiece = board[row][col];
-      if (attackerPiece.value === PIECES.EMPTY || attackerPiece.team === defendingTeam) {
-        continue;
-      }
-      const possibleMoves = getBasicMoves(attackerPiece, [row, col], board);
-
-      if (possibleMoves && possibleMoves.some(([moveRow, moveCol]) => moveRow === targetRow && moveCol === targetCol)) {
-        return true;
-      }
-    }
-  }
-  return false;
-};
 

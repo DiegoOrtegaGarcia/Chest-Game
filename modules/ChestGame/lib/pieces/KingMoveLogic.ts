@@ -1,5 +1,6 @@
 import { Piece } from "../../types/chestGameTypes";
-import { getAllMovesSpecificUbication, isSquareUnderAttack} from "../moves/GeneralPieceLogic";
+import { isSquareUnderAttack } from "../cheackLogic/checkLogis";
+import { getAllMovesSpecificUbication} from "../moves/GeneralPieceLogic";
 
 export const getKingMoves = (piece : Piece, position :[number,number], board : Piece[][]) => {
     const basicMoves = getKingBasicMoves(piece,position,board)

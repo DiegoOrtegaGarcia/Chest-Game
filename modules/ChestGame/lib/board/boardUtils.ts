@@ -1,6 +1,5 @@
 import { BOARD_SIZE, PIECES } from "@/core/constants/constants"
 import { Piece } from "../../types/chestGameTypes"
-import { isSquareUnderAttack } from "../moves/GeneralPieceLogic"
 
 export const createNewBoard = (teamSelection: boolean = true) => {
     const board : Piece[][] = []
@@ -39,14 +38,14 @@ export const getPieceAt = (board: Piece[][], position: [number, number]): Piece 
 };
 
 
+export const getKingPosition = (team: string, board: Piece[][]) : [number,number] | null =>{
 
-export const isKingInCheck = (kingTeam: string,board: Piece[][])=> {
     let kingPosition: [number, number] | null = null;
 
     for (let row = 0; row < BOARD_SIZE; row++) {
         for (let col = 0; col < BOARD_SIZE; col++) {
             const piece = board[row][col];
-            if (piece.value === PIECES.KING && piece.team === kingTeam) {
+            if (piece.value === PIECES.KING && piece.team === team) {
                 kingPosition = [row, col];
                 break;
             }
@@ -54,8 +53,5 @@ export const isKingInCheck = (kingTeam: string,board: Piece[][])=> {
         if (kingPosition) break;
     }
 
-    if (kingPosition) {
-        return isSquareUnderAttack(kingPosition, kingTeam, board);
-    }
-    
-};
+    return kingPosition
+}

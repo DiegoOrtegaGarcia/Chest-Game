@@ -1,6 +1,8 @@
 import { BOARD_SIZE, PIECES } from '@/core/constants/constants';
 import { createNewBoard } from '@/modules/ChestGame/lib/board/boardUtils';
 import '@testing-library/jest-dom'
+import { createEmptyBoard, createPieceToTest } from './PicesMovesUtils';
+import { isCheckMate } from '@/modules/ChestGame/lib/cheackLogic/checkLogis';
 
 const teamSelection = false ;
 
@@ -41,4 +43,13 @@ describe('Home', () => {
     ))
   })
 
+  it("Verificar si es jacke mate",()=>{
+    const board = createEmptyBoard()
+    createPieceToTest(board,PIECES.KING,"white",[7,0])
+    createPieceToTest(board,PIECES.ROOK,"black",[0,0])
+    createPieceToTest(board,PIECES.ROOK,"black",[7,7])
+    expect(isCheckMate("white",board)).toBe(false)
+    createPieceToTest(board,PIECES.QUEEN,'black',[0,7])
+    expect(isCheckMate("white",board)).toBe(true)
+  })
 })

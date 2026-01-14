@@ -6,7 +6,7 @@ import { getRookBasicMoves, getRookMoves } from "../pieces/RookMoveLogic";
 import { getKnightBasicMoves, getKnightMoves } from "../pieces/KnightMoveLogic";
 import { getQueenBasicMoves, getQueenMoves } from "../pieces/QueenMoveLogic";
 import { getKingBasicMoves, getKingMoves } from "../pieces/KingMoveLogic";
-import { isKingInCheck } from "../board/boardUtils";
+import { isKingInCheck } from "../cheackLogic/checkLogis";
 
 export const getPossibleMoves = (pieceWithPos: PieceWithPosition,teamSelection: boolean,board: Piece[][]): [number, number][] | null => {
   const { type: piece, position } = pieceWithPos;
