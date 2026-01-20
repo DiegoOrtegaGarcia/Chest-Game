@@ -33,41 +33,51 @@ export const isSquareUnderAttack = (position: [number, number],defendingTeam: st
 
 
 export const isCheckMate = (team: string, board: Piece[][]): boolean => {
-
+    // 1. Verificar que el rey esté en jaque
     if (!isKingInCheck(team, board)) {
         return false;
     }
-
-    const kingPosition: [number, number] | null = getKingPosition(team,board);
+    
+    // 2. Verificar si el rey tiene movimientos legales
+    const kingPosition = getKingPosition(team, board);
     if (!kingPosition) return false;
-
-    const KING = board[kingPosition[0]][kingPosition[1]]
-    const teamSelection = team === "white";
-
-    const kingMoves = getPossibleMoves({ type: KING, position: kingPosition },teamSelection, board);
-
-    if (kingMoves && kingMoves.length > 0) {
+    
+    const king = board[kingPosition[0]][kingPosition[1]];
+    const kingMoves = getPossibleMoves(
+        { type: king, position: kingPosition },
+        team === "white",
+        board
+    ) || [];
+    
+    // Si el rey tiene al menos un movimiento legal, no es jaque mate
+    if (kingMoves.length > 0) {
         return false;
     }
-
-    for (let row = 0; row < board.length; row++) {
-        for (let col = 0; col < board[row].length; col++) {
-            const currentPiece = board[row][col];
-
-            if (currentPiece.team !== team || currentPiece.value === PIECES.KING) {
+    
+    // 3. Verificar si alguna pieza aliada puede bloquear o capturar
+    for (let row = 0; row < BOARD_SIZE; row++) {
+        for (let col = 0; col < BOARD_SIZE; col++) {
+            const piece = board[row][col];
+            
+            if (piece.team !== team || piece.value === PIECES.KING) {
                 continue;
             }
-
-            const allyMoves = getPossibleMoves({ type: currentPiece, position: [row, col] },teamSelection,board);
-
-            for (const move of allyMoves || []) {
-                const simulatedBoard = simulateMove(board, [row, col], move, currentPiece);
+            
+            const moves = getPossibleMoves(
+                { type: piece, position: [row, col] as [number, number] },
+                team === "white",
+                board
+            ) || [];
+            
+            for (const move of moves) {
+                const simulatedBoard = simulateMove(board, [row, col], move, piece);
                 if (!isKingInCheck(team, simulatedBoard)) {
-                    return false;
+                    return false; // Hay un movimiento que bloquea el jaque
                 }
             }
         }
     }
-    return true;
+    
+    return true; // Es jaque mate
 };
 

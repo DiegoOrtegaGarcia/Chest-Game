@@ -1,15 +1,20 @@
 import { Piece } from "@/core/types/coreTypes";
-import { isSquareUnderAttack } from "../cheackLogic/checkLogis";
+import { isKingInCheck} from "../cheackLogic/checkLogis";
 import { getAllMovesSpecificUbication} from "../moves/GeneralPieceLogic";
+import { simulateMove } from "../moves/piecesMovesUtils";
 
-export const getKingMoves = (piece : Piece, position :[number,number], board : Piece[][]) => {
-    const basicMoves = getKingBasicMoves(piece,position,board)
-    const possibleMoves = []
-    for(let i = 0 ;i < basicMoves.length; i++){
-        const positionToVerify = basicMoves[i]
-        if(!isSquareUnderAttack(positionToVerify,piece.team,board)) possibleMoves.push(positionToVerify)
+export const getKingMoves = (piece: Piece, position: [number, number], board: Piece[][]): [number, number][] => {
+    const basicMoves = getKingBasicMoves(piece, position, board);
+    const possibleMoves: [number, number][] = [];
+    
+    for (const targetPos of basicMoves) {
+        const simulatedBoard = simulateMove(board, position, targetPos, piece);
+        if (!isKingInCheck(piece.team, simulatedBoard)) {
+            possibleMoves.push(targetPos);
+        }
     }
-    return possibleMoves 
+    
+    return possibleMoves;
 }
 
 export const getKingBasicMoves = (piece : Piece, position :[number,number], board : Piece[][]) => {

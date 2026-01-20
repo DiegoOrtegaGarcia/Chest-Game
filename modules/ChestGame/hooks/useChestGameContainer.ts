@@ -1,9 +1,10 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { createNewBoard } from "../lib/board/boardUtils";
 import { Piece } from "@/core/types/coreTypes";
 import { getPossibleMoves } from "../lib/moves/piecesMovesUtils";
 import { PIECES } from "@/core/constants/constants";
 import { useGameStore } from "@/core/storages/gameStorage";
+import { isCheckMate, isKingInCheck } from "../lib/cheackLogic/checkLogis";
 
 
 
@@ -11,8 +12,7 @@ export const useChestGameContainer = () => {
     const [board, setBoard] = useState<Piece[][]>(createNewBoard());
     const [selectedPiece, setSelectedPiece] = useState<{piece: Piece; position: [number, number];} | null>(null);
     
-    const { turn, changeTurn, playerTeam } = useGameStore();
-    
+    const { turn, changeTurn,playerTeam} = useGameStore();
     const isPlayersTurn = useMemo(() => {
       return turn === playerTeam;
     }, [turn, playerTeam]);
@@ -72,6 +72,13 @@ export const useChestGameContainer = () => {
     const isEmpty = (piece: Piece) => {
         return piece.team === 'empty';
     };
+
+    useEffect(()=>{
+        if(isKingInCheck(turn,board)){
+            console.log("estoy en jacke")
+            console.log(`Respuesta de la funcion ${isCheckMate(turn,board)}`)
+        }
+    },[turn])
 
     return { board, handleCellClick, possibleMoves, selectedPiece,turn,playerTeam,isPlayersTurn,canInteract,};
 };

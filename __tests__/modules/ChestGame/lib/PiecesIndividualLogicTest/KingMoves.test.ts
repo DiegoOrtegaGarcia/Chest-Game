@@ -34,4 +34,20 @@ describe("King Moves Logic",()=>{
         const moves = getPossibleMoves(whiteKing,true,board)
         expect(moves).toContainEqual([1,1])
     })
-})
+
+    it("Rey no debe poder capturar la reina que está defendida por un alfil", () => {
+        const board = createEmptyBoard();
+        
+        createPieceToTest(board, PIECES.BISHOP, "white", [6, 0]);
+        createPieceToTest(board, PIECES.QUEEN, "white", [1, 5]);
+        const blackKing = createPieceToTest(board, PIECES.KING, "black", [0, 4]);
+        
+        const kingMoves = getPossibleMoves(blackKing, false, board);
+        
+        expect(kingMoves).not.toContainEqual([1, 5]);
+        
+        expect(kingMoves).toEqual(expect.arrayContaining([
+            [0, 3],
+        ]));
+    });
+});
