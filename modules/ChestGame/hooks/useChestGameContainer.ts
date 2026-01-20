@@ -4,22 +4,22 @@ import { Piece } from "@/core/types/coreTypes";
 import { getPossibleMoves } from "../lib/moves/piecesMovesUtils";
 import { PIECES } from "@/core/constants/constants";
 import { useGameStore } from "@/core/storages/gameStorage";
-import { isCheckMate, isKingInCheck } from "../lib/cheackLogic/checkLogis";
-
-
+import { isCheckMate} from "../lib/cheackLogic/checkLogis";
 
 export const useChestGameContainer = () => {
     const [board, setBoard] = useState<Piece[][]>(createNewBoard());
     const [selectedPiece, setSelectedPiece] = useState<{piece: Piece; position: [number, number];} | null>(null);
+    const [gameOver, setGameOver] = useState<boolean>(false);
+    const [winner, setWinner] = useState<'white' | 'black' | null>(null);
     
-    const { turn, changeTurn,playerTeam} = useGameStore();
+    const { turn, changeTurn, playerTeam,resetGameStorage } = useGameStore();
     const isPlayersTurn = useMemo(() => {
       return turn === playerTeam;
     }, [turn, playerTeam]);
     
     const canInteract = useMemo(() => {
-      return isPlayersTurn;
-    }, [isPlayersTurn]);
+      return isPlayersTurn && !gameOver;
+    }, [isPlayersTurn, gameOver]);
     
     const possibleMoves = useMemo(() => {
         if (!selectedPiece || !canInteract) return [];
@@ -73,12 +73,24 @@ export const useChestGameContainer = () => {
         return piece.team === 'empty';
     };
 
-    useEffect(()=>{
-        if(isKingInCheck(turn,board)){
-            console.log("estoy en jacke")
-            console.log(`Respuesta de la funcion ${isCheckMate(turn,board)}`)
-        }
-    },[turn])
+    useEffect(() => {
+        const checkGameStatus = () => {
+            if (isCheckMate(turn, board)) {
+                setGameOver(true);
+                setWinner(turn === 'white' ? 'black' : 'white');
+            }
+        };
+        
+        checkGameStatus();
+    }, [board, turn]);
 
-    return { board, handleCellClick, possibleMoves, selectedPiece,turn,playerTeam,isPlayersTurn,canInteract,};
+    const resetGame = useCallback(() => {
+        setBoard(createNewBoard());
+        setSelectedPiece(null);
+        setGameOver(false);
+        setWinner(null);
+        resetGameStorage()
+    }, [resetGameStorage]);
+
+    return {board,handleCellClick,possibleMoves,selectedPiece,turn,playerTeam,isPlayersTurn,canInteract,gameOver,winner,resetGame};
 };

@@ -5,6 +5,7 @@ interface GameStore {
   playerTeam: "white" | "black";
   setPlayerTeam: (team: "white" | "black") => void;
   changeTurn: () => void;
+  resetGameStorage: () => void;
 }
 
 export const useGameStore = create<GameStore>((set, get) => ({
@@ -15,5 +16,9 @@ export const useGameStore = create<GameStore>((set, get) => ({
   
   changeTurn: () => set({ 
     turn: get().turn === "white" ? "black" : "white" 
+  }),
+
+  resetGameStorage: () => set({ 
+    turn: "white",
   }),
 }));
